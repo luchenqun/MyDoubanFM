@@ -26,15 +26,6 @@ SOURCES += main.cpp\
 HEADERS  += WidgetMain.h \
     DownloadControl.h \
     Common.h \
-    curl/curl.h \
-    curl/curlbuild.h \
-    curl/curlrules.h \
-    curl/curlver.h \
-    curl/easy.h \
-    curl/mprintf.h \
-    curl/multi.h \
-    curl/stdcheaders.h \
-    curl/typecheck-gcc.h \
     WidgetBase.h \
     WidgetTitle.h \
     PushButton.h \
@@ -42,6 +33,7 @@ HEADERS  += WidgetMain.h \
     WidgetFunction.h
 
 win32: LIBS += -L$$PWD/curl/ -llibcurl
+INCLUDEPATH += $$PWD/curl
 
 RESOURCES += \
     MyDoubanFM.qrc

@@ -1,5 +1,4 @@
 #include "WidgetMain.h"
-#include "DownloadControl.h"
 #include <QApplication>
 #include <QMediaPlayer>
 
@@ -28,24 +27,25 @@ WidgetMain::WidgetMain(QWidget *parent)
 
     this->setLayout(mainLayout);
 
-    QMediaPlayer *player = new QMediaPlayer(this);
-    QString song_link = "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
-    player->setMedia(QUrl(song_link));  //song_link为根据步骤二获取的歌曲链接
-    player->setVolume(50);
-    player->play();
+//    QMediaPlayer *player = new QMediaPlayer(this);
+//    QString song_link = "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
+//    player->setMedia(QUrl(song_link));  //song_link为根据步骤二获取的歌曲链接
+//    player->setVolume(50);
+//    player->play();
 
-//    DownloadControl* dc = DownloadControl::instance();
-//    QString currentDir = QApplication::applicationDirPath();
-//    QString dir = currentDir + QStringLiteral("\\DownloadTest");
-//    dc->setDir(dir);
+    m_dc = DownloadControl::instance();
+    QString currentDir = QApplication::applicationDirPath();
+    QString dir = currentDir + QStringLiteral("\\DownloadTest");
+    m_dc->setDir(dir);
 
-//    QStringList urls;
+    QStringList urls;
 //    urls << "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
-//    DOWNLOAD_HANDLE handle = dc->createTask(urls);
-//    dc->startTask(handle);
+    urls << "https://github.com/luchenqun/MyDoubanFM/archive/master.zip";
+    m_handle = m_dc->createTask(urls);
+    m_dc->startTask(m_handle);
 }
 
 WidgetMain::~WidgetMain()
 {
-
+    m_dc->deleteTask(m_handle);
 }

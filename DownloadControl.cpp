@@ -94,11 +94,12 @@ DownloadFarm::DownloadFarm(const QStringList &urlStrLst, const QString dir, QObj
     m_url = QUrl(m_urlStr);
     QFileInfo fileInfo(m_url.toString());
     m_fileName = fileInfo.fileName();
-    m_fileName = "1222.mp3";
+//    m_fileName = "1222.mp3";
     m_filePath = m_fileDir + "/" + m_fileName;
     setDir(m_fileDir);
 
     m_curl = curl_easy_init();
+    curl_easy_setopt(m_curl, CURLOPT_SSL_VERIFYPEER, 0L);
 
     connect(this, &DownloadFarm::retry, this, &DownloadFarm::execute, Qt::QueuedConnection); // 必须队列方式连接信号槽
 }
@@ -555,7 +556,7 @@ QString DownloadFarm::getUrlStr() const
     return m_urlStr;
 }
 
-
+/*----------------------------------我是性感的分割线----------------------------------*/
 DownloadThread::DownloadThread(const QStringList &urlStrLst, const QString dir, QObject *parent):
     QObject(parent),
     m_d(NULL),
@@ -686,6 +687,7 @@ DownloadFarm::DownlodState DownloadThread::getState() const
     return m_d->m_state;
 }
 
+/*----------------------------------我是性感的分割线----------------------------------*/
 DownloadControl::DownloadControl(QObject *parent):
     QObject(parent)
 {

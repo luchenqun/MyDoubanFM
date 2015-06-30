@@ -5,6 +5,7 @@
 #include "WidgetTitle.h"
 #include "WidgetFunction.h"
 #include "WidgetPlay.h"
+#include "DownloadControl.h"
 
 class WidgetMain : public WidgetBase
 {
@@ -18,6 +19,8 @@ private:
     WidgetFunction * m_WidgetFunction;
     WidgetPlay * m_WidgetPlay;
     const int WidgetMainMargins = 10;
+    DOWNLOAD_HANDLE m_handle;
+    DownloadControl* m_dc;
 };
 
 #endif // WidgetMain_H

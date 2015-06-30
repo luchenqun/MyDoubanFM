@@ -1,7 +1,7 @@
 ﻿#ifndef LIBCURLPARSER_H
 #define LIBCURLPARSER_H
 
-#include "curl/curl.h"
+#include "curl.h"
 #include "Common.h"
 #include <QThread>
 #include <QFile>
