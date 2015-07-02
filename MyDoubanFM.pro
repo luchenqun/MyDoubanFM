@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     WidgetTitle.cpp \
     PushButton.cpp \
     WidgetPlay.cpp \
-    WidgetFunction.cpp
+    WidgetFunction.cpp \
+    NetControl.cpp \
+    NetWork.cpp
 
 HEADERS  += WidgetMain.h \
     DownloadControl.h \
@@ -30,7 +32,9 @@ HEADERS  += WidgetMain.h \
     WidgetTitle.h \
     PushButton.h \
     WidgetPlay.h \
-    WidgetFunction.h
+    WidgetFunction.h \
+    NetControl.h \
+    NetWork.h
 
 win32: LIBS += -L$$PWD/curl/ -llibcurl
 INCLUDEPATH += $$PWD/curl

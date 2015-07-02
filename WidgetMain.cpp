@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMediaPlayer>
 
+
 WidgetMain::WidgetMain(QWidget *parent)
     : WidgetBase(parent)
 {
@@ -39,10 +40,14 @@ WidgetMain::WidgetMain(QWidget *parent)
     m_dc->setDir(dir);
 
     QStringList urls;
-//    urls << "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
-    urls << "https://github.com/luchenqun/MyDoubanFM/archive/master.zip";
+    urls << "http://7sby9p.com2.z0.glb.qiniucdn.com/App/2015/0313/F0102_01.sbb";
     m_handle = m_dc->createTask(urls);
     m_dc->startTask(m_handle);
+
+    m_nc = NetControl::singleton();
+    m_netHandle = m_nc->createTaskHttpGet("http://www.qq.com");
+    m_nc->startTask(m_netHandle);
+
 }
 
 WidgetMain::~WidgetMain()

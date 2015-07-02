@@ -199,6 +199,7 @@ quint64 getDiskFreeSpace(QString drive)
 #endif
 }
 
+
 bool isDiskSpaceFree(QString path, qint64 size)
 {
     QString drive = path.left(2);

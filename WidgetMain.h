@@ -6,6 +6,7 @@
 #include "WidgetFunction.h"
 #include "WidgetPlay.h"
 #include "DownloadControl.h"
+#include "NetControl.h"
 
 class WidgetMain : public WidgetBase
 {
@@ -21,6 +22,9 @@ private:
     const int WidgetMainMargins = 10;
     DOWNLOAD_HANDLE m_handle;
     DownloadControl* m_dc;
+
+    NetControl *m_nc;
+    NET_HANDLE m_netHandle;
 };
 
 #endif // WidgetMain_H

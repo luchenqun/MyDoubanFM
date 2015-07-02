@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QDir>
 #include <QMutexLocker>
+#include <QTime>
+#include <QDataStream>
 
 size_t DownloadFarm::writeDataFuncHeader(void* buffer, size_t size, size_t n, void *user)
 {
@@ -109,7 +111,7 @@ DownloadFarm::~DownloadFarm()
     qDebug() << "~Download()";
     stop();
     QMutexLocker locker(&m_mutex);
-    curl_easy_cleanup(m_curl);
+//    curl_easy_cleanup(m_curl);
 }
 
 bool DownloadFarm::detectDiskSpace()
@@ -253,6 +255,8 @@ void DownloadFarm::nextUrl(int code)
 
 void DownloadFarm::execute()
 {
+    QTime time;
+    time.start();
     QMutexLocker locker(&m_mutex);
     m_stopFlag = false;
 
@@ -423,6 +427,7 @@ void DownloadFarm::execute()
     }
 
     m_state = DS_ready;
+    qDebug() << "start task " << time.elapsed();
 }
 
 void DownloadFarm::finish()

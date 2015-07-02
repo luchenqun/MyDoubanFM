@@ -31,3 +31,12 @@ Makefile*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+# Visual Studio 2013
+*.sdf
+*.suo
+*.user
+Win32/
+[Dd]ebug/
+[Rr]ealse
+1.txt
+
