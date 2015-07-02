@@ -1,6 +1,7 @@
 #include "WidgetMain.h"
 #include <QApplication>
 #include <QMediaPlayer>
+#include <QTime>
 
 
 WidgetMain::WidgetMain(QWidget *parent)
@@ -28,29 +29,22 @@ WidgetMain::WidgetMain(QWidget *parent)
 
     this->setLayout(mainLayout);
 
-//    QMediaPlayer *player = new QMediaPlayer(this);
-//    QString song_link = "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
-//    player->setMedia(QUrl(song_link));  //song_link为根据步骤二获取的歌曲链接
-//    player->setVolume(50);
-//    player->play();
-
-    m_dc = DownloadControl::instance();
-    QString currentDir = QApplication::applicationDirPath();
-    QString dir = currentDir + QStringLiteral("\\DownloadTest");
-    m_dc->setDir(dir);
-
-    QStringList urls;
-    urls << "http://7sby9p.com2.z0.glb.qiniucdn.com/App/2015/0313/F0102_01.sbb";
-    m_handle = m_dc->createTask(urls);
-    m_dc->startTask(m_handle);
+    QMediaPlayer *player = new QMediaPlayer(this);
+    QString song_link = "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
+    player->setMedia(QUrl(song_link));  //song_link为根据步骤二获取的歌曲链接
+    player->setVolume(50);
+    player->play();
 
     m_nc = NetControl::singleton();
-    m_netHandle = m_nc->createTaskHttpGet("http://www.qq.com");
+    m_netHandle = m_nc->createTask("http://www.qq.com", NetWork::TASK_HTTP_GET);
+	QTime time;
+	time.start();
+	//m_netHandle->setRunMode(NetWork::SYNCHRONIZATION);
     m_nc->startTask(m_netHandle);
+	qDebug() << "Http Get run time = " << time.elapsed();
 
 }
 
 WidgetMain::~WidgetMain()
 {
-    m_dc->deleteTask(m_handle);
 }

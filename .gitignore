@@ -37,6 +37,7 @@ Makefile*
 *.user
 Win32/
 [Dd]ebug/
-[Rr]ealse
+[Rr]ealse/
+GeneratedFiles/
 1.txt
 
