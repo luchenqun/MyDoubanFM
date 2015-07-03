@@ -124,6 +124,35 @@ int NetWork::initHttpGet(QString url)
 }
 
 /** 
+* @brief 开始任务
+* @author LuChenQun
+* @date 2015/07/03
+* @param[in] netWork
+* @return int 任务执行结果
+*/
+int NetWork::startTask(NetWork *netWork)
+{
+	CURLcode code = CURLE_OK;
+	if (netWork == this)
+	{
+		switch (m_taskType)
+		{
+		case NetWork::TASK_HTTP_GET:
+			code = (CURLcode)startHttpGet();
+			break;
+		case NetWork::TASK_HTTP_POST:
+			break;
+		case NetWork::TASK_DOWNLOAD_FILE:
+			break;
+		default:
+			break;
+		}
+	}
+
+	return code;
+}
+
+/** 
 * @brief 开始 HTTP_GET 任务
 * @author LuChenQun
 * @date 2015/07/03

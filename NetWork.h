@@ -40,6 +40,7 @@ public:
 signals:
 
 public slots:
+	int startTask(NetWork *netWork);
     int startHttpGet();
 private:
     CURL *m_curl;				/**< CURL 指针 */

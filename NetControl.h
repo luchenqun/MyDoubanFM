@@ -24,7 +24,7 @@ public:
 private:
 	NET_HANDLE createTaskHttpGet(const QString url);
 signals:
-    void startHttpGeted(NET_HANDLE handle);
+	void startTasked(NET_HANDLE handle);
 public slots:
 private:
     static NetControl *m_netControl;

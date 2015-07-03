@@ -30,7 +30,7 @@ WidgetMain::WidgetMain(QWidget *parent)
     this->setLayout(mainLayout);
 
     QMediaPlayer *player = new QMediaPlayer(this);
-    QString song_link = "http://file.qianqian.com//data2/music/41937637/41937637.mp3?xcode=f263a12b1dc7c08eaca186416cbdae39";
+    QString song_link = "http://mr3.douban.com/201301221627/ca5607811b5ad84a5b66990f19135dbd/view/song/small/p425687.mp3";
     player->setMedia(QUrl(song_link));  //song_link为根据步骤二获取的歌曲链接
     player->setVolume(50);
     player->play();

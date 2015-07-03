@@ -81,11 +81,11 @@ bool NetControl::startTask(NET_HANDLE handle)
     case NetWork::TASK_HTTP_GET:
 		if (handle->getRunMode() == NetWork::ASYNCHRONOUS)
 		{ 
-			emit startHttpGeted(handle);
+			emit startTasked(handle);
 		}
 		else
 		{
-			handle->startHttpGet();
+			handle->startTask(handle);
 		}
         break;
     case NetWork::TASK_DOWNLOAD_FILE:
@@ -130,7 +130,7 @@ NET_HANDLE NetControl::createTaskHttpGet(const QString url)
 	if (CURLE_OK == initRet)
 	{
 		netWork->setTaskType(NetWork::TASK_HTTP_GET);
-		connect(this, &NetControl::startHttpGeted, netWork, &NetWork::startHttpGet, Qt::QueuedConnection);
+		connect(this, &NetControl::startTasked, netWork, &NetWork::startTask, Qt::QueuedConnection);
 		m_netHandleList.append(netWork);
 	}
 	else
