@@ -36,7 +36,7 @@ WidgetMain::WidgetMain(QWidget *parent)
     player->play();
 
     m_nc = NetControl::singleton();
-    m_netHandle = m_nc->createTask("http://www.qq.com", NetWork::TASK_HTTP_GET);
+    m_netHandle = m_nc->createTask("https://www.baidu.com/", NetWork::TASK_HTTP_GET);
 	QTime time;
 	time.start();
 	//m_netHandle->setRunMode(NetWork::SYNCHRONIZATION);

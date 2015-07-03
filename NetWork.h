@@ -26,6 +26,7 @@ public:
 	};
 
     explicit NetWork(QObject *parent = 0);
+	~NetWork();
 	void moveToNewThread();
     QThread* getThread();
     void setTaskType(TaskType taskType);
@@ -34,6 +35,7 @@ public:
 	RunMode getRunMode();
 
     int initHttpGet(QString url);
+	static size_t writeData(void* buffer, size_t size, size_t n, void *user);
     static size_t httpGetWriteData(void* buffer, size_t size, size_t n, void *user);
 signals:
 
@@ -45,6 +47,7 @@ private:
     QString m_url;				/**< 网络链接 */ 
 	TaskType m_taskType;		/**< 任务类型 */
 	RunMode m_runMode;			/**< 执行方式：异步，同步 */
+	QString m_receiveData;		/**< 接收数据 */
 };
 
 #endif // NETWORK_H

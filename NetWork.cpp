@@ -18,6 +18,18 @@ NetWork::NetWork(QObject *parent) :
 }
 
 /** 
+* @brief 析构函数
+* @author LuChenQun
+* @date 2015/07/03
+* @return  
+*/
+NetWork::~NetWork()
+{
+	m_thread->quit();
+	m_thread->wait();
+}
+
+/** 
 * @brief 将任务移到新线程
 * @author LuChenQun
 * @date 2015/07/02
@@ -121,7 +133,7 @@ int NetWork::startHttpGet()
 {
     curl_easy_setopt(m_curl, CURLOPT_URL, m_url.toLocal8Bit().data());
     curl_easy_setopt(m_curl, CURLOPT_READFUNCTION, NULL);
-    curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, httpGetWriteData);
+	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
     curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
 
     curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1);
@@ -132,6 +144,40 @@ int NetWork::startHttpGet()
     code = curl_easy_perform(m_curl);
 
     return code;
+}
+
+/**
+* @brief HTTP_GET 数据回写函数
+* @author LuChenQun
+* @date 2015/07/03
+* @param[in] buffer 数据块
+* @param[in] size 数据大小
+* @param[in] n 数据块个数
+* @param[in] user 用户会写的指针
+* @return size_t 返回写入的数据大小
+*/
+size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
+{
+	char *data = (char*)buffer;
+	size_t len = size * n;
+
+	NetWork* d = (NetWork*)user;
+	TaskType taskType = d->getTaskType();
+
+	switch (taskType)
+	{
+	case NetWork::TASK_HTTP_GET:
+		d->m_receiveData.append(data);
+		break;
+	case NetWork::TASK_HTTP_POST:
+		break;
+	case NetWork::TASK_DOWNLOAD_FILE:
+		break;
+	default:
+		break;
+	}
+
+	return len;
 }
 
 /** 
