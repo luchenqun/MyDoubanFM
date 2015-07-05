@@ -12,7 +12,8 @@
 NetWork::NetWork(QObject *parent) :
     QObject(parent),
     m_thread(nullptr),
-	m_runMode(ASYNCHRONOUS)
+	m_runMode(ASYNCHRONOUS),
+	m_status(NETWORK_OK)
 {
     m_curl = curl_easy_init();
 }
@@ -51,7 +52,6 @@ QThread* NetWork::getThread()
 {
     return m_thread;
 }
-
 
 /** 
 * @brief 设置网络任务类型
@@ -100,13 +100,35 @@ NetWork::RunMode NetWork::getRunMode()
 }
 
 /** 
-* @brief 初始化HTTP_GET任务
+* @brief 获取当前的状态码
 * @author LuChenQun
-* @date 2015/07/02
-* @param[in] url 网络连接
-* @return int 初始化结果 CURLE_OK 初始化成功 其他返回值初始化失败
+* @date 2015/07/05
+* @return int
 */
-int NetWork::initHttpGet(QString url)
+int NetWork::getStatus()
+{
+	return (this == nullptr) ? (NETWORK_HANDLE_NULL_PTR) : (m_status);
+}
+
+/** 
+* @brief 获取接收到的数据（比如：使用http get的数据，http post返回的数据等）
+* @author LuChenQun
+* @date 2015/07/05
+* @return QT_NAMESPACE::QString 数据
+*/
+QString NetWork::getReceiveData()
+{
+	return (this == nullptr) ? ("") : (m_receiveData);
+}
+
+/** 
+* @brief 创建任务
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] url 网络链接
+* @return int 创建任务结果返回
+*/
+int NetWork::createTask(const QString url)
 {
 	CURLcode code = CURLE_OK;
 
@@ -132,17 +154,19 @@ int NetWork::initHttpGet(QString url)
 */
 int NetWork::startTask(NetWork *netWork)
 {
-	CURLcode code = CURLE_OK;
+	int code = CURLE_OK;
 	if (netWork == this)
 	{
 		switch (m_taskType)
 		{
 		case NetWork::TASK_HTTP_GET:
-			code = (CURLcode)startHttpGet();
+			code = startHttpGet();
 			break;
 		case NetWork::TASK_HTTP_POST:
+			code = startHttpPost();
 			break;
 		case NetWork::TASK_DOWNLOAD_FILE:
+			code = startDownloadFile();
 			break;
 		default:
 			break;
@@ -160,6 +184,8 @@ int NetWork::startTask(NetWork *netWork)
 */
 int NetWork::startHttpGet()
 {
+	m_receiveData.clear();
+
     curl_easy_setopt(m_curl, CURLOPT_URL, m_url.toLocal8Bit().data());
     curl_easy_setopt(m_curl, CURLOPT_READFUNCTION, NULL);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
@@ -169,10 +195,79 @@ int NetWork::startHttpGet()
     curl_easy_setopt(m_curl, CURLOPT_CONNECTTIMEOUT, 3);
     curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, 3);
 
-	CURLcode code = CURLE_OK;
+	int code = CURLE_OK;
     code = curl_easy_perform(m_curl);
 
+	emitStatus((code == CURLE_OK) ? (NETWORK_FINISH_SUCCESS) : (code));
+
     return code;
+}
+
+/** 
+* @brief 开始httpPost任务
+* @author LuChenQun
+* @date 2015/07/05
+* @return int 任务结果
+*/
+int NetWork::startHttpPost()
+{
+	m_receiveData.clear();
+
+	int index = m_url.indexOf("?");
+	QString postUrl = m_url.left(index);
+	QString postFields = m_url.mid(index+1);
+
+	curl_easy_setopt(m_curl, CURLOPT_URL, postUrl.toLocal8Bit().data());
+	curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, postFields.toLocal8Bit().data());
+	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
+	curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
+	curl_easy_setopt(m_curl, CURLOPT_POST, 1);
+	curl_easy_setopt(m_curl, CURLOPT_COOKIEFILE, "/Users/zhu/CProjects/curlposttest.cookie");
+
+	int code = CURLE_OK;
+	code = curl_easy_perform(m_curl);
+
+	emitStatus((code == CURLE_OK) ? (NETWORK_FINISH_SUCCESS) : (code));
+
+	return code;
+}
+
+/** 
+* @brief 开始文件下载任务
+* @author LuChenQun
+* @date 2015/07/05
+* @return int 任务结果
+*/
+int NetWork::startDownloadFile()
+{
+	//curl_easy_setopt(m_curl, CURLOPT_URL, m_url.toLocal8Bit().data());
+	//curl_easy_setopt(m_curl, CURLOPT_READFUNCTION, NULL);
+	//curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
+	//curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
+
+	//curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1);
+	//curl_easy_setopt(m_curl, CURLOPT_CONNECTTIMEOUT, 3);
+	//curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, 3);
+
+	int code = CURLE_OK;
+	//code = curl_easy_perform(m_curl);
+
+	//emitStatus((code == CURLE_OK) ? (NETWORK_FINISH_SUCCESS) : (code));
+
+	return code;
+}
+
+/** 
+* @brief 发送状态码
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] status
+* @return void
+*/
+void NetWork::emitStatus(int status)
+{
+	m_status = status;
+	emit statusChanged(this);
 }
 
 /**
@@ -199,6 +294,7 @@ size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
 		d->m_receiveData.append(data);
 		break;
 	case NetWork::TASK_HTTP_POST:
+		d->m_receiveData.append(data);
 		break;
 	case NetWork::TASK_DOWNLOAD_FILE:
 		break;
@@ -207,23 +303,4 @@ size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
 	}
 
 	return len;
-}
-
-/** 
-* @brief HTTP_GET 数据回写函数
-* @author LuChenQun
-* @date 2015/07/03
-* @param[in] buffer 数据块
-* @param[in] size 数据大小
-* @param[in] n 数据块个数
-* @param[in] user 用户会写的指针
-* @return size_t 返回写入的数据大小
-*/
-size_t NetWork::httpGetWriteData(void* buffer, size_t size, size_t n, void *user)
-{
-	char *data = (char*)buffer;
-	NetWork* d = (NetWork*)user;
-	qDebug() << data;
-
-	return size * n;
 }

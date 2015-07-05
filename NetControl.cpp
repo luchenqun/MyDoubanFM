@@ -44,19 +44,27 @@ NetControl* NetControl::singleton()
 */
 NET_HANDLE NetControl::createTask(const QString url, NetWork::TaskType taskType)
 {
-	NET_HANDLE handle = nullptr;
-	switch (taskType)
+	NetWork *netWork = new NetWork();
+	netWork->setTaskType(taskType);
+
+	int createTaskRet = netWork->createTask(url);
+	if (CURLE_OK != createTaskRet)
 	{
-	case NetWork::TASK_HTTP_GET:
-		handle = createTaskHttpGet(url);
-		break;
-	case NetWork::TASK_DOWNLOAD_FILE:
-		break;
-	default:
-		break;
+		delete netWork;
+		netWork = nullptr;
 	}
 
-	return handle;
+	// 初始化一些东西，
+	if (netWork != nullptr)
+	{
+		connect(this, &NetControl::startTasked, netWork, &NetWork::startTask, Qt::QueuedConnection);
+		connect(netWork, &NetWork::progressed, this, &NetControl::progressed);
+		connect(netWork, &NetWork::statusChanged, this, &NetControl::statusChanged);
+
+		m_netHandleList.append(netWork);
+	}
+
+	return netWork;
 }
 
 /** 
@@ -64,10 +72,15 @@ NET_HANDLE NetControl::createTask(const QString url, NetWork::TaskType taskType)
 * @author LuChenQun
 * @date 2015/07/03
 * @param[in] handle 任务句柄
-* @return bool true 成功开始任务 false 任务开始失败
+* @return NetWork::NetCode 网络任务状态码
 */
-bool NetControl::startTask(NET_HANDLE handle)
+NetWork::NetWokeCode NetControl::startTask(NET_HANDLE handle)
 {
+	if (handle == nullptr)
+	{
+		return NetWork::NETWORK_HANDLE_NULL_PTR;
+	}
+
 	// 是否在新线程中运行(即异步执行)
 	if (handle->getRunMode() == NetWork::ASYNCHRONOUS)
 	{
@@ -75,69 +88,94 @@ bool NetControl::startTask(NET_HANDLE handle)
 		handle->getThread()->start();
 	}
 
-	NetWork::TaskType taskType = handle->getTaskType();
-    switch (taskType)
-    {
-    case NetWork::TASK_HTTP_GET:
-		if (handle->getRunMode() == NetWork::ASYNCHRONOUS)
-		{ 
-			emit startTasked(handle);
-		}
-		else
-		{
-			handle->startTask(handle);
-		}
-        break;
-    case NetWork::TASK_DOWNLOAD_FILE:
-        break;
-    default:
-        break;
-    }
+	switch (handle->getRunMode())
+	{
+	case NetWork::ASYNCHRONOUS:
+		emit startTasked(handle);
+		break;
+	case NetWork::SYNCHRONIZATION:
+		handle->startTask(handle);
+		break;
+	default:
+		emit startTasked(handle);
+		break;
+	}
 
-    return true;
+	return NetWork::NETWORK_OK;
 }
 
 
-bool NetControl::pauseTask(NET_HANDLE handle)
+/** 
+* @brief 暂停任务
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] handle 任务句柄
+* @return NetWork::NetCode 网络任务状态码
+*/
+NetWork::NetWokeCode NetControl::pauseTask(NET_HANDLE handle)
 {
-    return true;
-}
+	if (handle == nullptr)
+	{
+		return NetWork::NETWORK_HANDLE_NULL_PTR;
+	}
 
-bool NetControl::resumeTask(NET_HANDLE handle)
-{
-    return true;
-}
-
-bool NetControl::deleteTask(NET_HANDLE handle)
-{
-    return true;
+	return NetWork::NETWORK_OK;
 }
 
 /**
-* @brief 创建HttpGet的网络句柄
+* @brief 恢复任务
 * @author LuChenQun
-* @date 2015/07/02
-* @param[in] url 链接
-* @return NET_HANDLE 网络句柄 nullptr 初始化失败
+* @date 2015/07/05
+* @param[in] handle 任务句柄
+* @return NetWork::NetCode 网络任务状态码
 */
-NET_HANDLE NetControl::createTaskHttpGet(const QString url)
+NetWork::NetWokeCode NetControl::resumeTask(NET_HANDLE handle)
 {
-	NetWork *netWork = new NetWork();
-
-	int initRet = CURLE_OK;
-	initRet = netWork->initHttpGet(url);
-
-	if (CURLE_OK == initRet)
+	if (handle == nullptr)
 	{
-		netWork->setTaskType(NetWork::TASK_HTTP_GET);
-		connect(this, &NetControl::startTasked, netWork, &NetWork::startTask, Qt::QueuedConnection);
-		m_netHandleList.append(netWork);
-	}
-	else
-	{
-		delete netWork;
-		netWork = nullptr;
+		return NetWork::NETWORK_HANDLE_NULL_PTR;
 	}
 
-	return netWork;
+	return NetWork::NETWORK_OK;
+}
+
+/**
+* @brief 删除任务
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] handle 任务句柄
+* @return NetWork::NetCode 网络任务状态码
+*/
+NetWork::NetWokeCode NetControl::deleteTask(NET_HANDLE handle)
+{
+	if (handle == nullptr)
+	{
+		return NetWork::NETWORK_HANDLE_NULL_PTR;
+	}
+
+	return NetWork::NETWORK_OK;
+}
+
+/** 
+* @brief 获取状态
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] handle 网络句柄
+* @return int 状态码
+*/
+int NetControl::getStatus(NET_HANDLE handle)
+{
+	return handle->getStatus();
+}
+
+/** 
+* @brief 获取接收到的数据
+* @author LuChenQun
+* @date 2015/07/05
+* @param[in] handle
+* @return QT_NAMESPACE::QString
+*/
+QString NetControl::getReceiveData(NET_HANDLE handle)
+{
+	return handle->getReceiveData();
 }

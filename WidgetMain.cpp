@@ -36,15 +36,32 @@ WidgetMain::WidgetMain(QWidget *parent)
     player->play();
 
     m_nc = NetControl::singleton();
-    m_netHandle = m_nc->createTask("https://www.baidu.com/", NetWork::TASK_HTTP_GET);
-	QTime time;
-	time.start();
-	//m_netHandle->setRunMode(NetWork::SYNCHRONIZATION);
-    m_nc->startTask(m_netHandle);
-	qDebug() << "Http Get run time = " << time.elapsed();
+
+    //m_netHttpGet = m_nc->createTask("https://www.baidu.com/img/bdlogo.png", NetWork::TASK_HTTP_GET);
+    //m_nc->startTask(m_netHttpGet);
+
+	QString url = "http://www.douban.com/j/app/login?app_name=radio_dsktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";
+	m_netHttpPost = m_nc->createTask(url, NetWork::TASK_HTTP_POST);
+	m_nc->startTask(m_netHttpPost);
+
+	connect(m_nc, &NetControl::statusChanged, this, &WidgetMain::statusChange);
 
 }
 
 WidgetMain::~WidgetMain()
 {
+}
+
+
+void WidgetMain::statusChange(NET_HANDLE netHandle)
+{
+	int status = m_nc->getStatus(netHandle);
+	switch (status)
+	{
+	case NetWork::NETWORK_FINISH_SUCCESS:
+		qDebug() << "data:" << m_nc->getReceiveData(netHandle).left(4000);
+		break;
+	default:
+		break;
+	}
 }

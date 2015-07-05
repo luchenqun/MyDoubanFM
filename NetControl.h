@@ -17,14 +17,17 @@ private:
 public:
     static NetControl* singleton();
 	NET_HANDLE createTask(const QString url, NetWork::TaskType taskType);
-    bool startTask(NET_HANDLE handle);
-    bool pauseTask(NET_HANDLE handle);
-    bool resumeTask(NET_HANDLE handle);
-    bool deleteTask(NET_HANDLE handle);
-private:
-	NET_HANDLE createTaskHttpGet(const QString url);
+    NetWork::NetWokeCode startTask(NET_HANDLE handle);
+    NetWork::NetWokeCode pauseTask(NET_HANDLE handle);
+    NetWork::NetWokeCode resumeTask(NET_HANDLE handle);
+    NetWork::NetWokeCode deleteTask(NET_HANDLE handle);
+
+	int getStatus(NET_HANDLE handle);
+	QString getReceiveData(NET_HANDLE handle);
 signals:
 	void startTasked(NET_HANDLE handle);
+	void progressed(NET_HANDLE handle);
+	void statusChanged(NET_HANDLE handle);
 public slots:
 private:
     static NetControl *m_netControl;

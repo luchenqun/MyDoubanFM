@@ -15,6 +15,8 @@ class WidgetMain : public WidgetBase
 public:
     WidgetMain(QWidget *parent = 0);
     ~WidgetMain();
+private slots:
+	void statusChange(NET_HANDLE netHandle);
 private:
     WidgetTitle *m_WidgetTitle;               // 所有菜单栏集合
     WidgetFunction * m_WidgetFunction;
@@ -22,7 +24,8 @@ private:
     const int WidgetMainMargins = 10;
 
     NetControl *m_nc;
-    NET_HANDLE m_netHandle;
+    NET_HANDLE m_netHttpGet;
+	NET_HANDLE m_netHttpPost;
 };
 
 #endif // WidgetMain_H
