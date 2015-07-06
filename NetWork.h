@@ -50,6 +50,7 @@ public:
 	int startHttpPost();
 	int startDownloadFile();
 	static size_t writeData(void* buffer, size_t size, size_t n, void *user);
+	static int CurlDebug(CURL *pcurl, curl_infotype itype, char * pData, size_t size, void *);
 private:
 	void emitStatus(int status);
 signals:

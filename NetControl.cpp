@@ -165,7 +165,7 @@ NetWork::NetWokeCode NetControl::deleteTask(NET_HANDLE handle)
 */
 int NetControl::getStatus(NET_HANDLE handle)
 {
-	return handle->getStatus();
+	return (handle == nullptr) ? (NetWork::NETWORK_HANDLE_NULL_PTR) : (handle->getStatus());
 }
 
 /** 
@@ -177,5 +177,5 @@ int NetControl::getStatus(NET_HANDLE handle)
 */
 QString NetControl::getReceiveData(NET_HANDLE handle)
 {
-	return handle->getReceiveData();
+	return (handle == nullptr) ? ("") : (handle->getReceiveData());
 }

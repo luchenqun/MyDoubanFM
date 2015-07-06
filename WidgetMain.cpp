@@ -37,10 +37,19 @@ WidgetMain::WidgetMain(QWidget *parent)
 
     m_nc = NetControl::singleton();
 
-    //m_netHttpGet = m_nc->createTask("https://www.baidu.com/img/bdlogo.png", NetWork::TASK_HTTP_GET);
-    //m_nc->startTask(m_netHttpGet);
+	QString url = "https://www.douban.com/j/app/login?app_name=radio_desktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";					  
+	//url = "http://lcqlcq.sinaapp.com/2048Update.php";
 
-	QString url = "http://www.douban.com/j/app/login?app_name=radio_dsktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";
+	//for (int i = 1; i <= 100; i++)
+	//{
+	//	QString url = QString("http://www.douban.com/j/app/login?app_name=radio_desktop_win&version=%1&email=luchenqun@qq.com&password=fendoubuxi596320").arg(i);
+	//	NET_HANDLE handle = m_nc->createTask(url, NetWork::TASK_HTTP_POST);
+	//	m_nc->startTask(handle);
+	//}
+
+	//m_netHttpGet = m_nc->createTask(url, NetWork::TASK_HTTP_GET);
+ //   m_nc->startTask(m_netHttpGet);
+
 	m_netHttpPost = m_nc->createTask(url, NetWork::TASK_HTTP_POST);
 	m_nc->startTask(m_netHttpPost);
 
@@ -59,7 +68,7 @@ void WidgetMain::statusChange(NET_HANDLE netHandle)
 	switch (status)
 	{
 	case NetWork::NETWORK_FINISH_SUCCESS:
-		qDebug() << "data:" << m_nc->getReceiveData(netHandle).left(4000);
+		qDebug() << netHandle << " data:" << m_nc->getReceiveData(netHandle);
 		break;
 	default:
 		break;
