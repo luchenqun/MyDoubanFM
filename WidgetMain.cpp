@@ -37,23 +37,17 @@ WidgetMain::WidgetMain(QWidget *parent)
 
     m_nc = NetControl::singleton();
 
-	QString url = "https://www.douban.com/j/app/login?app_name=radio_desktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";					  
+	QString url = "https://www.douban.com/j/app/login?app_name=radio_desktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";
 	//url = "http://lcqlcq.sinaapp.com/2048Update.php";
 
-	//for (int i = 1; i <= 100; i++)
-	//{
-	//	QString url = QString("http://www.douban.com/j/app/login?app_name=radio_desktop_win&version=%1&email=luchenqun@qq.com&password=fendoubuxi596320").arg(i);
-	//	NET_HANDLE handle = m_nc->createTask(url, NetWork::TASK_HTTP_POST);
-	//	m_nc->startTask(handle);
-	//}
-
 	//m_netHttpGet = m_nc->createTask(url, NetWork::TASK_HTTP_GET);
- //   m_nc->startTask(m_netHttpGet);
+	//m_nc->startTask(m_netHttpGet);
 
 	m_netHttpPost = m_nc->createTask(url, NetWork::TASK_HTTP_POST);
 	m_nc->startTask(m_netHttpPost);
 
 	connect(m_nc, &NetControl::statusChanged, this, &WidgetMain::statusChange);
+
 
 }
 

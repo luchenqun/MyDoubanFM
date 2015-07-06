@@ -204,86 +204,34 @@ int NetWork::startHttpGet()
     return code;
 }
 
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <curl/curl.h>
-#include <QDebug>
-
-#define POSTURL "https://www.douban.com/j/app/login"
-#define POSTFIELDS "app_name=radio_desktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320"
-#define FILENAME "curlposttest.log"
-
-size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp);
-
-int main(int argc, char *argv[]) {
-CURL *curl;
-CURLcode res;
-FILE *fptr;
-struct curl_slist *http_header = NULL;
-
-if ((fptr = fopen(FILENAME, "w")) == NULL) {
-fprintf(stderr, "fopen file error: %s\n", FILENAME);
-exit(1);
-}
-
-curl = curl_easy_init();
-curl_easy_setopt(curl, CURLOPT_URL, POSTURL);
-curl_easy_setopt(curl, CURLOPT_POSTFIELDS, POSTFIELDS);
-curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-curl_easy_setopt(curl, CURLOPT_WRITEDATA, fptr);
-curl_easy_setopt(curl, CURLOPT_POST, 1);
-curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
-curl_easy_setopt(curl, CURLOPT_HEADER, 1);
-curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
-curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "/Users/zhu/CProjects/curlposttest.cookie");
-res = curl_easy_perform(curl);
-curl_easy_cleanup(curl);
-}
-
-size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp) {
-char *p = (char *)buffer;
-qDebug() << p;
-FILE *fptr = (FILE*)userp;
-fwrite(buffer, size, nmemb, fptr);
-return size * nmemb;
-}
-*/
-
 /** 
 * @brief 开始httpPost任务
 * @author LuChenQun
 * @date 2015/07/05
 * @return int 任务结果
+* @see http://finux.iteye.com/blog/715247
 */
 int NetWork::startHttpPost()
 {
 	m_receiveData.clear();
 
-	//int index = m_url.indexOf("?");
-	//QString postUrl = m_url.left(index);
-	//QString postFields = m_url.mid(index+1);
+	int index = m_url.indexOf("?");
+	QString postUrl = m_url.left(index);
+	QString postFields = m_url.mid(index+1);
 
-	char *postUrl = "https://www.douban.com/j/app/login";
-	char *postFields = "app_name=radio_desktop_win&version=100&email=luchenqun@qq.com&password=fendoubuxi596320";
+	// 不能直接char *url = postUrl.toLocal8Bit().data();我也不知道为什么
+	// 具体请见：http://www.cnblogs.com/Romi/archive/2012/03/12/2392478.html 以及 http://blog.csdn.net/liuysheng/article/details/6744976
+	QByteArray postUrlBa = postUrl.toLocal8Bit();
+	QByteArray postFieldsBa = postFields.toLocal8Bit();
+	char *url = postUrlBa.data();
+	char *urlFields = postFieldsBa.data();
 
-	// 不设置这个会返回403错误
-#if 1
-	QString useragent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/20100101 Firefox/13.0.1");
-	curl_easy_setopt(m_curl, CURLOPT_USERAGENT, useragent.toLocal8Bit().data());
-	curl_easy_setopt(m_curl, CURLOPT_URL, postUrl);
-	curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, postFields);
+	curl_easy_setopt(m_curl, CURLOPT_URL, url);
+	curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, urlFields);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
 	curl_easy_setopt(m_curl, CURLOPT_POST, 1);
-#else
-	curl_easy_setopt(m_curl, CURLOPT_URL, postUrl);
-	curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, postFields);
-	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
-	curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
-	curl_easy_setopt(m_curl, CURLOPT_POST, 1);
-#endif
+
 	int code = CURLE_OK;
 	code = curl_easy_perform(m_curl);
 
@@ -365,7 +313,17 @@ size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
 	return len;
 }
 
-
+/** 
+* @brief 调试信息
+* @author LuChenQun
+* @date 2015/07/06
+* @param[in] pcurl
+* @param[in] itype
+* @param[in] pData
+* @param[in] size
+* @param[in] *
+* @return int
+*/
 int NetWork::CurlDebug(CURL *pcurl, curl_infotype itype, char * pData, size_t size, void *)
 {
 	if (itype == CURLINFO_TEXT)
