@@ -35,9 +35,9 @@ Makefile*
 *.sdf
 *.suo
 *.user
+*.opensdf
 Win32/
 [Dd]ebug/
 [Rr]ealse/
 GeneratedFiles/
-1.txt
 

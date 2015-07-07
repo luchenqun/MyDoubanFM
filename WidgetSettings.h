@@ -3,11 +3,11 @@
 
 #include <QWidget>
 
-class WidgetFunction : public QWidget
+class WidgetSettings : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WidgetFunction(QWidget *parent = 0);
+    explicit WidgetSettings(QWidget *parent = 0);
 
 signals:
 

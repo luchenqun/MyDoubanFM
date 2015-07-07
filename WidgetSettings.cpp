@@ -1,9 +1,9 @@
-#include "WidgetFunction.h"
+#include "WidgetSettings.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QListWidget>
 
-WidgetFunction::WidgetFunction(QWidget *parent) : QWidget(parent)
+WidgetSettings::WidgetSettings(QWidget *parent) : QWidget(parent)
 {
     QStringList list;
     for(int i=100; i<=1030; i++)
