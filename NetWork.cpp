@@ -303,7 +303,10 @@ int NetWork::startHttpGet()
 {
 	m_receiveData.clear();
 
-    curl_easy_setopt(m_curl, CURLOPT_URL, m_url.toLocal8Bit().data());
+	QByteArray urlBa = m_url.toUtf8();
+	char *url = urlBa.data();
+
+	curl_easy_setopt(m_curl, CURLOPT_URL, url);
     curl_easy_setopt(m_curl, CURLOPT_READFUNCTION, NULL);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
     curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);

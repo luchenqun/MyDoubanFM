@@ -36,18 +36,21 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{26250422-12d3-4bcc-a16f-849286ecd67b}</UniqueIdentifier>
+      <UniqueIdentifier>{30a4b3ad-4f55-43ae-916b-5406bfda3c52}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{23eba7bb-6f70-4eca-882f-97d0a0a2cf5e}</UniqueIdentifier>
+      <UniqueIdentifier>{ba4b8dd2-6136-48b7-817d-c020366b76e9}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubanAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DownloadControl.cpp">
@@ -71,11 +74,20 @@
     <ClCompile Include="WidgetPlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WidgetSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="WidgetTitle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_DoubanAPI.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_DoubanAPI.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_DownloadControl.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -119,6 +131,12 @@
     <ClCompile Include="Release\moc_WidgetPlay.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_WidgetSettings.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_WidgetSettings.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_WidgetTitle.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -128,29 +146,14 @@
     <ClCompile Include="GeneratedFiles\qrc_MyDoubanFM.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_WidgetSettings.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_WidgetSettings.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="WidgetSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DoubanAPI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_DoubanAPI.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_DoubanAPI.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="DoubanAPI.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="DownloadControl.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -170,6 +173,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="WidgetPlay.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WidgetSettings.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="WidgetTitle.h">
@@ -267,11 +273,5 @@
     <None Include="res\img\video_play_hover.png">
       <Filter>Resource Files</Filter>
     </None>
-    <CustomBuild Include="WidgetSettings.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="DoubanAPI.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
   </ItemGroup>
 </Project>

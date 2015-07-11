@@ -38,6 +38,6 @@ Makefile*
 *.opensdf
 Win32/
 [Dd]ebug/
-[Rr]ealse/
+[Rr]elease/
 GeneratedFiles/
 

@@ -30,8 +30,9 @@ public:
 	/** @brief NetWoke类所有状态返回码 */
 	typedef enum
 	{
-		NETWORK_OK = 0,					/**< 正常 */
 		NETWORK_CODE_BEGIN = CURL_LAST,	/**< 为了区分CURLcode，将CURLcode最后一个状态置为这里的初始状态 */
+
+		NETWORK_OK,						/**< 正常 */
 		NETWORK_HANDLE_NULL_PTR,		/**< 空指针 */
 		NETWORK_NO_TASK,				/**< 没有进行任务 */
 		NETWORK_DISK_NO_SPACE,			/**< 磁盘没剩余空间 */

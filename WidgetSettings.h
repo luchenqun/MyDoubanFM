@@ -1,4 +1,4 @@
-#ifndef WidgetFunction_H
+﻿#ifndef WidgetFunction_H
 #define WidgetFunction_H
 
 #include <QWidget>
