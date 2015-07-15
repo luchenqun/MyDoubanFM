@@ -1,14 +1,26 @@
 ﻿QLabel#title
 {
     color:#000000;
-    font-size:18px
+    font-size:20px
 }
 
 QLabel#artist
 {
     color:#282828;
-    font-size:12px
+    font-size:16px
 }
+
+/*进度条风格*/
+QProgressBar#playPro{
+    color : solid #FF8D40;  
+    border: 1px solid #FF8D40;  
+    border-radius: 0px;  
+    background: transparent;  
+    padding: 1px;  
+    text-align : center ;
+    height:5px;
+    width:220px;
+} 
 
 /* 黄色风格按钮*/
 QPushButton

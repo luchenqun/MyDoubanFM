@@ -16,6 +16,8 @@ class WidgetPlay : public QWidget
 public:
     explicit WidgetPlay(QWidget *parent = 0);
 	~WidgetPlay();
+private:
+    void absoluteLayout();
 signals:
 
 public slots:

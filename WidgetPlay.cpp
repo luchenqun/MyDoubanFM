@@ -23,31 +23,7 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
     m_pauseBtn->setPicName(QString(":/img/res/img/video_play.png"));
     m_nextBtn->setPicName(QString(":/img/res/img/video_forward.png"));
 
-	// 布局
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-
-    QHBoxLayout *layout0 = new QHBoxLayout();
-	layout0->addWidget(m_titleLab);
-
-	QHBoxLayout *layout1 = new QHBoxLayout();
-	layout1->addWidget(m_artistLab);
-
-    QHBoxLayout *layout2 = new QHBoxLayout();
-	layout2->addWidget(m_playProPb, 3);
-	layout2->addWidget(m_songCurTimeLab, 1);
-	layout2->addWidget(m_songTotalTimeLab, 1);
-
-    QHBoxLayout *layout3 = new QHBoxLayout();
-	layout3->addWidget(m_likeBtn);
-	layout3->addWidget(m_hateBtn);
-	layout3->addWidget(m_pauseBtn);
-	layout3->addWidget(m_nextBtn);
-
-	mainLayout->addLayout(layout0);
-	mainLayout->addLayout(layout1);
-	mainLayout->addLayout(layout2);
-	mainLayout->addLayout(layout3);
-
+    absoluteLayout();
 	// 网络操作
 	m_nc = NetControl::singleton();
 
@@ -77,6 +53,22 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
 	});
 
 	m_play = new QMediaPlayer(this);
+}
+
+// 这么少的元素，而且窗口大小固定，使用绝对布局吧。
+void WidgetPlay::absoluteLayout()
+{
+    m_titleLab->move(0, 0);
+    m_artistLab->move(0, 30);
+
+    m_playProPb->move(0, 60);
+    m_songCurTimeLab->move(80, 60);
+    m_songTotalTimeLab->move(120, 60);
+
+    m_likeBtn->move(0, 100);
+    m_hateBtn->move(60, 100);
+    m_pauseBtn->move(120, 100);
+    m_nextBtn->move(180, 100);
 }
 
 WidgetPlay::~WidgetPlay()
