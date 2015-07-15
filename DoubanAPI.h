@@ -46,7 +46,7 @@ public:
 class Song
 {
 public:
-	QString album;		/**<专辑跳转地址 */
+	QString album;		/**< 专辑跳转地址 */
 	QString picture;	/**< 专辑图片地址 */
 	int ssid;			/**< 未知 */
 	QString artist;		/**< 艺术家 */

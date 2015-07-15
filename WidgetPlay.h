@@ -25,7 +25,6 @@ public slots:
 private:
 	QLabel *m_titleLab;			/**< 歌曲名字 */
 	QLabel *m_artistLab;		/**< 演唱者 */
-	QLabel *m_channelLab;		/**< 频道名字 */
 	QLabel *m_songCurTimeLab;	/**< 当前播放时间 */
 	QLabel *m_songTotalTimeLab;	/**< 总共时间 */
 	QProgressBar *m_playProPb;	/**< 播放进度 */

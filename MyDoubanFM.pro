@@ -43,3 +43,5 @@ INCLUDEPATH += $$PWD/curl
 
 RESOURCES += \
     MyDoubanFM.qrc
+
+DISTFILES +=

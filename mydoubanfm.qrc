@@ -30,4 +30,7 @@
         <file>res/img/video_play.png</file>
         <file>res/img/video_play_hover.png</file>
     </qresource>
+    <qresource prefix="/qss">
+        <file alias="style">res/style.qss</file>
+    </qresource>
 </RCC>

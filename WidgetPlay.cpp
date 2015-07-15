@@ -5,13 +5,14 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
 {
 	this->setFixedWidth(300);
 
-	m_titleLab = new QLabel("title", this);
-	m_artistLab = new QLabel("artist", this);
-	m_channelLab = new QLabel("channel", this);
+    m_titleLab = new QLabel("我只在乎你", this);
+    m_artistLab = new QLabel("邓丽君", this);
+    m_titleLab->setObjectName("title");
 
-	m_songCurTimeLab = new QLabel("songCurTime", this);
 	m_playProPb = new QProgressBar(this);
-	m_songTotalTimeLab = new QLabel("songTotalTime", this);
+    m_songCurTimeLab = new QLabel("01:34", this);
+    m_songTotalTimeLab = new QLabel("04:45", this);
+    m_playProPb->setObjectName("playPro");
 
 	m_likeBtn = new PushButton(this);
 	m_hateBtn = new PushButton(this);
@@ -25,14 +26,15 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
 	// 布局
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    QHBoxLayout *layout1 = new QHBoxLayout();
-	layout1->addWidget(m_titleLab, 3);
-	layout1->addWidget(m_artistLab, 1);
-	layout1->addWidget(m_channelLab, 1);
+    QHBoxLayout *layout0 = new QHBoxLayout();
+	layout0->addWidget(m_titleLab);
+
+	QHBoxLayout *layout1 = new QHBoxLayout();
+	layout1->addWidget(m_artistLab);
 
     QHBoxLayout *layout2 = new QHBoxLayout();
-	layout2->addWidget(m_songCurTimeLab, 1);
 	layout2->addWidget(m_playProPb, 3);
+	layout2->addWidget(m_songCurTimeLab, 1);
 	layout2->addWidget(m_songTotalTimeLab, 1);
 
     QHBoxLayout *layout3 = new QHBoxLayout();
@@ -41,6 +43,7 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
 	layout3->addWidget(m_pauseBtn);
 	layout3->addWidget(m_nextBtn);
 
+	mainLayout->addLayout(layout0);
 	mainLayout->addLayout(layout1);
 	mainLayout->addLayout(layout2);
 	mainLayout->addLayout(layout3);
@@ -58,7 +61,6 @@ WidgetPlay::WidgetPlay(QWidget *parent) : QWidget(parent)
 
 	m_doubanAPI->getPlaySongList(*(new SongRequestInfo()));
 	connect(m_nextBtn, &PushButton::clicked, this, [=](){
-
 		if (m_play->state() == QMediaPlayer::PlayingState)
 		{
 			m_play->stop();
