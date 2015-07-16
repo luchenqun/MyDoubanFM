@@ -5,7 +5,6 @@
 
 WidgetSettings::WidgetSettings(QWidget *parent) : QWidget(parent)
 {
-	QLabel *label = new QLabel("WidgetSettings", this);
-	label->setFixedSize(300, 300);
+    this->setFixedSize(300, 300);
 }
 

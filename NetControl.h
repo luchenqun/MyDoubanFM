@@ -1,4 +1,4 @@
-#ifndef NETCONTROL_H
+ï»¿#ifndef NETCONTROL_H
 #define NETCONTROL_H
 
 #include <QObject>
@@ -33,6 +33,7 @@ public:
 	int getNetCode(NET_HANDLE handle);
 	QString getReceiveData(NET_HANDLE handle);
 	int getProgress(NET_HANDLE handle);
+    QString getFilePath(NET_HANDLE handle);
 signals:
 	void startTasked(NET_HANDLE handle);
 	void progressed(NET_HANDLE handle);
@@ -41,9 +42,9 @@ signals:
 public slots:
 private:
     static NetControl *m_netControl;
-	const QString m_defaultFolderName;		/**< Ä¬ÈÏµÄÏÂÔØÎÄ¼þ¼þ¼ÐÃû */
-	QList<NET_HANDLE> m_netHandleList;		/**< ÍøÂç¾ä±ú¼¯ºÏ */
-	QString m_taskDir;						/**< ÈÎÎñÄ¿Â¼ */
+	const QString m_defaultFolderName;		/**< é»˜è®¤çš„ä¸‹è½½æ–‡ä»¶ä»¶å¤¹å */
+	QList<NET_HANDLE> m_netHandleList;		/**< ç½‘ç»œå¥æŸ„é›†åˆ */
+	QString m_taskDir;						/**< ä»»åŠ¡ç›®å½• */
 };
 
 #endif // NETCONTROL_H

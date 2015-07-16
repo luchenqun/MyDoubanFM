@@ -21,7 +21,7 @@ V1.0     2014.01.16   卢郴群         程序开始编写
 WidgetTitle::WidgetTitle(QWidget *parent) :
     QWidget(parent)
 {
-    this->setFixedHeight(30);
+    this->setFixedSize(600, 30);
 
     QVBoxLayout *rightLayout = new QVBoxLayout();
 

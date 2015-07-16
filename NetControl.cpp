@@ -275,3 +275,16 @@ int NetControl::getProgress(NET_HANDLE handle)
 {
 	return (handle == nullptr) ? (0) : (handle->getProgress());
 }
+
+/**
+* @brief 获取文件路径
+* @author LuChenQun
+* @date 2015/07/16
+* @param[in] handle 网络句柄
+* @return QT_NAMESPACE::QString 文件路径
+*/
+
+QString NetControl::getFilePath(NET_HANDLE handle)
+{
+    return (netHandleCanUse(handle)) ? (handle->getFilePath()) : ("");
+}

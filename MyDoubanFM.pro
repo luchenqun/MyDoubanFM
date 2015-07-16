@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     WidgetSettings.cpp \
     NetControl.cpp \
     NetWork.cpp \
-	DoubanAPI.cpp
+	DoubanAPI.cpp \
+    WidgetLyric.cpp
 
 HEADERS  += WidgetMain.h \
     DownloadControl.h \
@@ -36,7 +37,8 @@ HEADERS  += WidgetMain.h \
     WidgetSettings.h \
     NetControl.h \
     NetWork.h \
-	DoubanAPI.h
+	DoubanAPI.h \
+    WidgetLyric.h
 
 win32: LIBS += -L$$PWD/curl/ -llibcurl
 INCLUDEPATH += $$PWD/curl

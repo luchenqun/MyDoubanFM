@@ -29,12 +29,7 @@ V1.0     2014.01.16   卢郴群         程序开始编写
 #define SOFTWARE_VERSION ("1.11")
 #define SOFTWARE_DATA   ("2014/12/05")
 
-#define MAIN_WIDGET_MIN_WIDTH   (992+20)     // 窗口的最小化宽度
-#define MAIN_WIDGET_MIN_HEIGHT  (736+20)     // 窗口的最小化高度
 #define MAIN_WIDGET_SHADOW_WIDTH    5      // 窗口的阴影宽度
-
-#define TITLE_WIDGET_FIXED_HEIGHT   101     // 顶部标题栏固定高度
-#define FOOT_WIDGET_FIXED_HEIGHT    28      // 底部菜单栏固定高度
 
 // 底部网址链接ID
 #define FOOT_HOME_HTTP_ID   1

@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMediaPlayer>
+#include <QTimer>
 #include "PushButton.h"
 #include "DoubanAPI.h"
 
@@ -18,8 +19,9 @@ public:
 	~WidgetPlay();
 private:
     void absoluteLayout();
+    QString secondToMMSS(int sec);
 signals:
-
+    void songPicUpdated(QString url);
 public slots:
 	void userLogin(DoubanLogRetInfo loginInfo);
 	void channelInfo(ChannelsInfo channelInfo);
@@ -28,6 +30,7 @@ private:
 	QLabel *m_titleLab;			/**< 歌曲名字 */
 	QLabel *m_artistLab;		/**< 演唱者 */
 	QLabel *m_songCurTimeLab;	/**< 当前播放时间 */
+    QLabel *m_obliqueLab;       /**< 斜线 */
 	QLabel *m_songTotalTimeLab;	/**< 总共时间 */
 	QProgressBar *m_playProPb;	/**< 播放进度 */
 	PushButton *m_likeBtn;		/**< 喜欢 */
@@ -39,6 +42,7 @@ private:
 	NetControl *m_nc;
 	QMediaPlayer *m_play;
 	Song m_song;
+    QTimer *m_curPlaytimer;
 };
 
 #endif // WidgetPlay_H

@@ -1,15 +1,15 @@
-#include "NetWork.h"
+ï»¿#include "NetWork.h"
 #include "NetControl.h"
 #include <QDebug>
 #include <QTime>
 #include <QTextCodec>
 
 /** 
-* @brief ¹¹Ôìº¯Êı
+* @brief æ„é€ å‡½æ•°
 * @author LuChenQun
 * @date 2015/07/02
-* @param[in] parent Ä¿Ö¸Õë
-* @return ÎŞ
+* @param[in] parent ç›®æŒ‡é’ˆ
+* @return æ— 
 */
 NetWork::NetWork(QObject *parent) :
     QObject(parent),
@@ -23,7 +23,7 @@ NetWork::NetWork(QObject *parent) :
 }
 
 /** 
-* @brief Îö¹¹º¯Êı
+* @brief ææ„å‡½æ•°
 * @author LuChenQun
 * @date 2015/07/03
 * @return  
@@ -35,7 +35,7 @@ NetWork::~NetWork()
 }
 
 /** 
-* @brief ½«ÈÎÎñÒÆµ½ĞÂÏß³Ì
+* @brief å°†ä»»åŠ¡ç§»åˆ°æ–°çº¿ç¨‹
 * @author LuChenQun
 * @date 2015/07/02
 * @return void
@@ -47,10 +47,10 @@ void NetWork::moveToNewThread()
 }
 
 /** 
-* @brief »ñÈ¡ÍøÂçÈÎÎñÔÚÏß³ÌµÄÖ¸Õë
+* @brief è·å–ç½‘ç»œä»»åŠ¡åœ¨çº¿ç¨‹çš„æŒ‡é’ˆ
 * @author LuChenQun
 * @date 2015/07/02
-* @return QThread* Ïß³ÌÖ¸Õë
+* @return QThread* çº¿ç¨‹æŒ‡é’ˆ
 */
 QThread* NetWork::getThread()
 {
@@ -58,10 +58,10 @@ QThread* NetWork::getThread()
 }
 
 /** 
-* @brief ÉèÖÃÍøÂçÈÎÎñÀàĞÍ
+* @brief è®¾ç½®ç½‘ç»œä»»åŠ¡ç±»å‹
 * @author LuChenQun
 * @date 2015/07/02
-* @param[in] taskType ÍøÂçÈÎÎñÀàĞÍ
+* @param[in] taskType ç½‘ç»œä»»åŠ¡ç±»å‹
 * @return void
 */
 void NetWork::setTaskType(TaskType taskType)
@@ -70,10 +70,10 @@ void NetWork::setTaskType(TaskType taskType)
 }
 
 /** 
-* @brief »ñÈ¡ÍøÂçÈÎÎñÀàĞÍ
+* @brief è·å–ç½‘ç»œä»»åŠ¡ç±»å‹
 * @author LuChenQun
 * @date 2015/07/02
-* @return NetWork::TaskType ÍøÂçÈÎÎñÀàĞÍ
+* @return NetWork::TaskType ç½‘ç»œä»»åŠ¡ç±»å‹
 */
 NetWork::TaskType NetWork::getTaskType()
 {
@@ -81,10 +81,10 @@ NetWork::TaskType NetWork::getTaskType()
 }
 
 /** 
-* @brief ÉèÖÃÔËĞĞÄ£Ê½£ºÒì²½(Í¬²½)
+* @brief è®¾ç½®è¿è¡Œæ¨¡å¼ï¼šå¼‚æ­¥(åŒæ­¥)
 * @author LuChenQun
 * @date 2015/07/03
-* @param[in] runMode ÔËĞĞÄ£Ê½
+* @param[in] runMode è¿è¡Œæ¨¡å¼
 * @return void
 */
 void NetWork::setRunMode(RunMode runMode)
@@ -93,10 +93,10 @@ void NetWork::setRunMode(RunMode runMode)
 }
 
 /** 
-* @brief »ñÈ¡ÔËĞĞÄ£Ê½
+* @brief è·å–è¿è¡Œæ¨¡å¼
 * @author LuChenQun
 * @date 2015/07/03
-* @return NetWork::RunMode ÔËĞĞÄ£Ê½£ºÒì²½(Í¬²½)
+* @return NetWork::RunMode è¿è¡Œæ¨¡å¼ï¼šå¼‚æ­¥(åŒæ­¥)
 */
 NetWork::RunMode NetWork::getRunMode()
 {
@@ -104,7 +104,7 @@ NetWork::RunMode NetWork::getRunMode()
 }
 
 /** 
-* @brief »ñÈ¡µ±Ç°µÄ×´Ì¬Âë
+* @brief è·å–å½“å‰çš„çŠ¶æ€ç 
 * @author LuChenQun
 * @date 2015/07/05
 * @return int
@@ -115,10 +115,10 @@ int NetWork::getStatus()
 }
 
 /** 
-* @brief »ñÈ¡½ÓÊÕµ½µÄÊı¾İ£¨±ÈÈç£ºÊ¹ÓÃhttp getµÄÊı¾İ£¬http post·µ»ØµÄÊı¾İµÈ£©
+* @brief è·å–æ¥æ”¶åˆ°çš„æ•°æ®ï¼ˆæ¯”å¦‚ï¼šä½¿ç”¨http getçš„æ•°æ®ï¼Œhttp postè¿”å›çš„æ•°æ®ç­‰ï¼‰
 * @author LuChenQun
 * @date 2015/07/05
-* @return QT_NAMESPACE::QString Êı¾İ
+* @return QT_NAMESPACE::QString æ•°æ®
 */
 QString NetWork::getReceiveData()
 {
@@ -126,7 +126,7 @@ QString NetWork::getReceiveData()
 }
 
 /** 
-* @brief »ñÈ¡½ø¶È
+* @brief è·å–è¿›åº¦
 * @author LuChenQun
 * @date 2015/07/07
 * @return int 
@@ -143,11 +143,11 @@ int NetWork::getProgress()
 }
 
 /** 
-* @brief ÉèÖÃÎÄ¼şÄ¿Â¼
+* @brief è®¾ç½®æ–‡ä»¶ç›®å½•
 * @author LuChenQun
 * @date 2015/07/07
 * @param[in] dirPath 
-* @return bool true ÉèÖÃ³É¹¦ false ÉèÖÃÊ§°Ü
+* @return bool true è®¾ç½®æˆåŠŸ false è®¾ç½®å¤±è´¥
 */
 bool NetWork::setFileDir(QString dirPath)
 {
@@ -166,10 +166,10 @@ bool NetWork::setFileDir(QString dirPath)
 }
 
 /** 
-* @brief »ñÈ¡ÎÄ¼şÄ¿Â¼
+* @brief è·å–æ–‡ä»¶ç›®å½•
 * @author LuChenQun
 * @date 2015/07/07
-* @return QT_NAMESPACE::QString ÎÄ¼şÄ¿Â¼
+* @return QT_NAMESPACE::QString æ–‡ä»¶ç›®å½•
 */
 QString NetWork::getFileDir()
 {
@@ -177,12 +177,12 @@ QString NetWork::getFileDir()
 }
 
 /** 
-* @brief ÉèÖÃÎÄ¼şÂ·¾¶£¨°üº¬ÎÄ¼şÃû¸úÎÄ¼şÄ¿Â¼Å¶£©
+* @brief è®¾ç½®æ–‡ä»¶è·¯å¾„ï¼ˆåŒ…å«æ–‡ä»¶åè·Ÿæ–‡ä»¶ç›®å½•å“¦ï¼‰
 * @author LuChenQun
 * @date 2015/07/07
-* @param[in] filePath ÎÄ¼şÂ·¾¶
-* @todo ĞèÒª¸üĞÂÄ¿Â¼¸úÎÄ¼şÃû
-* @return bool true ÉèÖÃ³É¹¦ false ÉèÖÃÊ§°Ü
+* @param[in] filePath æ–‡ä»¶è·¯å¾„
+* @todo éœ€è¦æ›´æ–°ç›®å½•è·Ÿæ–‡ä»¶å
+* @return bool true è®¾ç½®æˆåŠŸ false è®¾ç½®å¤±è´¥
 */
 bool NetWork::setFilePath(QString filePath)
 {
@@ -191,10 +191,10 @@ bool NetWork::setFilePath(QString filePath)
 }
 
 /** 
-* @brief »ñÈ¡ÎÄ¼şÂ·¾¶
+* @brief è·å–æ–‡ä»¶è·¯å¾„
 * @author LuChenQun
 * @date 2015/07/07
-* @return QT_NAMESPACE::QString ÎÄ¼şÂ·¾¶
+* @return QT_NAMESPACE::QString æ–‡ä»¶è·¯å¾„
 */
 QString NetWork::getFilePath()
 {
@@ -202,11 +202,11 @@ QString NetWork::getFilePath()
 }
 
 /** 
-* @brief ÉèÖÃÎÄ¼şÃû
+* @brief è®¾ç½®æ–‡ä»¶å
 * @author LuChenQun
 * @date 2015/07/07
 * @param[in] fileName 
-* @return bool true ÉèÖÃ³É¹¦ false ÉèÖÃÊ§°Ü
+* @return bool true è®¾ç½®æˆåŠŸ false è®¾ç½®å¤±è´¥
 */
 bool NetWork::setFileName(QString fileName)
 {
@@ -216,10 +216,10 @@ bool NetWork::setFileName(QString fileName)
 }
 
 /** 
-* @brief »ñÈ¡ÎÄ¼şÃû
+* @brief è·å–æ–‡ä»¶å
 * @author LuChenQun
 * @date 2015/07/07
-* @return QT_NAMESPACE::QString ÎÄ¼şÃû
+* @return QT_NAMESPACE::QString æ–‡ä»¶å
 */
 QString NetWork::getFileName()
 {
@@ -227,11 +227,11 @@ QString NetWork::getFileName()
 }
 
 /** 
-* @brief ´´½¨ÈÎÎñ
+* @brief åˆ›å»ºä»»åŠ¡
 * @author LuChenQun
 * @date 2015/07/05
-* @param[in] url ÍøÂçÁ´½Ó
-* @return int ´´½¨ÈÎÎñ½á¹û·µ»Ø
+* @param[in] url ç½‘ç»œé“¾æ¥
+* @return int åˆ›å»ºä»»åŠ¡ç»“æœè¿”å›
 */
 int NetWork::createTask(const QString url)
 {
@@ -260,11 +260,11 @@ int NetWork::createTask(const QString url)
 }
 
 /** 
-* @brief ¿ªÊ¼ÈÎÎñ
+* @brief å¼€å§‹ä»»åŠ¡
 * @author LuChenQun
 * @date 2015/07/03
 * @param[in] netWork
-* @return int ÈÎÎñÖ´ĞĞ½á¹û
+* @return int ä»»åŠ¡æ‰§è¡Œç»“æœ
 */
 int NetWork::startTask(NetWork *netWork)
 {
@@ -285,19 +285,19 @@ int NetWork::startTask(NetWork *netWork)
 		default:
 			break;
 		}
-	}
 
-	// ÈÎÎñÍê³É£¬·¢ËÍĞÅºÅ
-	emitStatus((code == CURLE_OK) ? (NETWORK_FINISH_SUCCESS) : (code));
+        // ä»»åŠ¡å®Œæˆï¼Œå‘é€ä¿¡å·
+        emitStatus((code == CURLE_OK) ? (NETWORK_FINISH_SUCCESS) : (code));
+	}
 
 	return code;
 }
 
 /** 
-* @brief ¿ªÊ¼ HTTP_GET ÈÎÎñ
+* @brief å¼€å§‹ HTTP_GET ä»»åŠ¡
 * @author LuChenQun
 * @date 2015/07/03
-* @return int ÈÎÎñÖ´ĞĞ½á¹û
+* @return int ä»»åŠ¡æ‰§è¡Œç»“æœ
 */
 int NetWork::startHttpGet()
 {
@@ -322,10 +322,10 @@ int NetWork::startHttpGet()
 }
 
 /** 
-* @brief ¿ªÊ¼httpPostÈÎÎñ
+* @brief å¼€å§‹httpPostä»»åŠ¡
 * @author LuChenQun
 * @date 2015/07/05
-* @return int ÈÎÎñ½á¹û
+* @return int ä»»åŠ¡ç»“æœ
 * @see http://finux.iteye.com/blog/715247
 */
 int NetWork::startHttpPost()
@@ -336,8 +336,8 @@ int NetWork::startHttpPost()
 	QString postUrl = m_url.left(index);
 	QString postFields = m_url.mid(index+1);
 
-	// ²»ÄÜÖ±½Óchar *url = postUrl.toLocal8Bit().data();ÎÒÒ²²»ÖªµÀÎªÊ²Ã´
-	// ¾ßÌåÇë¼û£ºhttp://www.cnblogs.com/Romi/archive/2012/03/12/2392478.html ÒÔ¼° http://blog.csdn.net/liuysheng/article/details/6744976
+	// ä¸èƒ½ç›´æ¥char *url = postUrl.toLocal8Bit().data();æˆ‘ä¹Ÿä¸çŸ¥é“ä¸ºä»€ä¹ˆ
+	// å…·ä½“è¯·è§ï¼šhttp://www.cnblogs.com/Romi/archive/2012/03/12/2392478.html ä»¥åŠ http://blog.csdn.net/liuysheng/article/details/6744976
 	QByteArray postUrlBa = postUrl.toLocal8Bit();
 	QByteArray postFieldsBa = postFields.toLocal8Bit();
 	char *url = postUrlBa.data();
@@ -356,10 +356,10 @@ int NetWork::startHttpPost()
 }
 
 /** 
-* @brief ¿ªÊ¼ÎÄ¼şÏÂÔØÈÎÎñ
+* @brief å¼€å§‹æ–‡ä»¶ä¸‹è½½ä»»åŠ¡
 * @author LuChenQun
 * @date 2015/07/05
-* @return int ÈÎÎñ½á¹û
+* @return int ä»»åŠ¡ç»“æœ
 */
 int NetWork::startDownloadFile()
 {
@@ -369,7 +369,7 @@ int NetWork::startDownloadFile()
 	QByteArray urlBa = m_url.toLocal8Bit();
 	char *url = urlBa.data();
 
-	// ³õÊ¼»¯ÎÄ¼ş
+	// åˆå§‹åŒ–æ–‡ä»¶
 	code = initFile();
 	if (code != NETWORK_INIT_FILE_SUCCESS)
 	{
@@ -383,7 +383,7 @@ int NetWork::startDownloadFile()
 	curl_easy_setopt(m_curl, CURLOPT_HEADER, 1);
 	curl_easy_setopt(m_curl, CURLOPT_NOBODY, 1);
 
-	// »ñÈ¡ÎÄ¼ş´óĞ¡
+	// è·å–æ–‡ä»¶å¤§å°
 	code = curl_easy_perform(m_curl);
 	double fileSize = 0;
 	curl_easy_getinfo(m_curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &fileSize);
@@ -398,11 +398,11 @@ int NetWork::startDownloadFile()
 	curl_easy_setopt(m_curl, CURLOPT_NOBODY, 0);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeData);
 	curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
-	curl_easy_setopt(m_curl, CURLOPT_RESUME_FROM_LARGE, m_breakPoint);	// ¶ÏµãĞø´«
-	curl_easy_setopt(m_curl, CURLOPT_XFERINFOFUNCTION, progress);		// ½ø¶È
+	curl_easy_setopt(m_curl, CURLOPT_RESUME_FROM_LARGE, m_breakPoint);	// æ–­ç‚¹ç»­ä¼ 
+	curl_easy_setopt(m_curl, CURLOPT_XFERINFOFUNCTION, progress);		// è¿›åº¦
 	curl_easy_setopt(m_curl, CURLOPT_XFERINFODATA, this);
 	curl_easy_setopt(m_curl, CURLOPT_NOPROGRESS, 0L);
-	curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);      // ¶àÏß³ÌĞèÒª×¢ÒâµÄ
+	curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);      // å¤šçº¿ç¨‹éœ€è¦æ³¨æ„çš„
 	curl_easy_setopt(m_curl, CURLOPT_FORBID_REUSE, 1);
 
 	code = curl_easy_perform(m_curl);
@@ -414,7 +414,7 @@ int NetWork::startDownloadFile()
 }
 
 /** 
-* @brief ·¢ËÍ×´Ì¬Âë
+* @brief å‘é€çŠ¶æ€ç 
 * @author LuChenQun
 * @date 2015/07/05
 * @param[in] status
@@ -427,10 +427,10 @@ void NetWork::emitStatus(int status)
 }
 
 /** 
-* @brief ·¢ËÍÎÄ¼ş´óĞ¡
+* @brief å‘é€æ–‡ä»¶å¤§å°
 * @author LuChenQun
 * @date 2015/07/07
-* @param[in] fileSize ÎÄ¼ş´óĞ¡
+* @param[in] fileSize æ–‡ä»¶å¤§å°
 * @return void 
 */
 void NetWork::emitFileSize(double fileSize)
@@ -441,10 +441,10 @@ void NetWork::emitFileSize(double fileSize)
 
 
 /** 
-* @brief ³õÊ¼»¯ĞèÒª¶ÁĞ´µÄÎÄ¼ş
+* @brief åˆå§‹åŒ–éœ€è¦è¯»å†™çš„æ–‡ä»¶
 * @author LuChenQun
 * @date 2015/07/07
-* @return int ³õÊ¼»¯½á¹û
+* @return int åˆå§‹åŒ–ç»“æœ
 */
 int NetWork::initFile()
 {
@@ -460,14 +460,14 @@ int NetWork::initFile()
 }
 
 /**
-* @brief HTTP_GET Êı¾İ»ØĞ´º¯Êı
+* @brief HTTP_GET æ•°æ®å›å†™å‡½æ•°
 * @author LuChenQun
 * @date 2015/07/03
-* @param[in] buffer Êı¾İ¿é
-* @param[in] size Êı¾İ´óĞ¡
-* @param[in] n Êı¾İ¿é¸öÊı
-* @param[in] user ÓÃ»§»áĞ´µÄÖ¸Õë
-* @return size_t ·µ»ØĞ´ÈëµÄÊı¾İ´óĞ¡
+* @param[in] buffer æ•°æ®å—
+* @param[in] size æ•°æ®å¤§å°
+* @param[in] n æ•°æ®å—ä¸ªæ•°
+* @param[in] user ç”¨æˆ·ä¼šå†™çš„æŒ‡é’ˆ
+* @return size_t è¿”å›å†™å…¥çš„æ•°æ®å¤§å°
 */
 size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
 {
@@ -496,7 +496,7 @@ size_t NetWork::writeData(void* buffer, size_t size, size_t n, void *user)
 }
 
 /** 
-* @brief ½ø¶È
+* @brief è¿›åº¦
 * @author LuChenQun
 * @date 2015/07/07
 * @param[in] p 
@@ -515,7 +515,7 @@ int NetWork::progress(void *p, curl_off_t dltotal, curl_off_t dlnow, curl_off_t 
 }
 
 /** 
-* @brief µ÷ÊÔĞÅÏ¢
+* @brief è°ƒè¯•ä¿¡æ¯
 * @author LuChenQun
 * @date 2015/07/06
 * @param[in] pcurl
@@ -551,11 +551,11 @@ int NetWork::curlDebug(CURL *pcurl, curl_infotype itype, char * pData, size_t si
 }
 
 /** 
-* @brief »ñÈ¡Ö¸¶¨´ÅÅÌµÄÊ£Óà¿Õ¼ä
+* @brief è·å–æŒ‡å®šç£ç›˜çš„å‰©ä½™ç©ºé—´
 * @author LuChenQun
 * @date 2015/07/07
-* @param[in] diskPath ´ÅÅÌÂ·¾¶£¬Èç C:/
-* @return QT_NAMESPACE::qint64 ´ÅÅÌ¿Õ¼ä´óĞ¡£¬µ¥Î»Îª×Ö½Ú
+* @param[in] diskPath ç£ç›˜è·¯å¾„ï¼Œå¦‚ C:/
+* @return QT_NAMESPACE::qint64 ç£ç›˜ç©ºé—´å¤§å°ï¼Œå•ä½ä¸ºå­—èŠ‚
 */
 qint64 NetWork::getDiskFreeSpace(QString diskPath)
 {
@@ -565,11 +565,11 @@ qint64 NetWork::getDiskFreeSpace(QString diskPath)
 }
 
 /** 
-* @brief ½«QString×ª»»Îªchar×Ö·û
+* @brief å°†QStringè½¬æ¢ä¸ºcharå­—ç¬¦
 * @author LuChenQun
 * @date 2015/07/07
-* @param[in] str ×Ö·û´®
-* @return char* ×Ö·ûÖ¸Õë
+* @param[in] str å­—ç¬¦ä¸²
+* @return char* å­—ç¬¦æŒ‡é’ˆ
 */
 char* NetWork::QStringToChar(QString str)
 {
